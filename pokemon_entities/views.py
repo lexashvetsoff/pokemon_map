@@ -69,12 +69,15 @@ def show_pokemon(request, pokemon_id):
         entities.append(entity)
     
     pok_entity = pokemons_entity[0]
-    previous_evolution = {}
     if pok_entity.pokemon.previous_evolution:
-        previous_evolution['title_ru'] = type(pok_entity.pokemon.previous_evolution.title),
-        previous_evolution['pokemon_id'] = pok_entity.pokemon.previous_evolution.id,
-        previous_evolution['img_url'] = request.build_absolute_uri(pok_entity.pokemon.previous_evolution.image.url)
-
+        previous_evolution = {
+            'title_ru': pok_entity.pokemon.previous_evolution.title,
+            'pokemon_id': pok_entity.pokemon.previous_evolution.id,
+            'img_url': request.build_absolute_uri(pok_entity.pokemon.previous_evolution.image.url)
+        }
+    else:
+        previous_evolution = ''
+    
     pokemon = {
         "pokemon_id": pok_entity.pokemon.id,
         "title_ru": pok_entity.pokemon.title,
