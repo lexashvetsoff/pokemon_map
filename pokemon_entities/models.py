@@ -2,13 +2,14 @@ from django.db import models  # noqa F401
 
 class Pokemon(models.Model):
     id = models.AutoField(auto_created=True, primary_key=True)
-    title = models.CharField(max_length=200)
-    title_en = models.CharField(max_length=200, blank=True)
-    title_jp = models.CharField(max_length=200, blank=True)
-    image = models.ImageField(blank=True)
-    description = models.TextField(blank=True)
+    title = models.CharField(max_length=200, verbose_name='Имя на русском')
+    title_en = models.CharField(max_length=200, blank=True, verbose_name='Имя на английском')
+    title_jp = models.CharField(max_length=200, blank=True, verbose_name='Имя на японском')
+    image = models.ImageField(blank=True, verbose_name='Картинка')
+    description = models.TextField(blank=True, verbose_name='Описание')
     previous_evolution = models.ForeignKey(
         'Pokemon',
+        verbose_name='Из кого эволюционирует',
         on_delete=models.CASCADE,
         blank=True,
         null=True,
@@ -22,14 +23,14 @@ class Pokemon(models.Model):
 class PokemonEntity(models.Model):
     pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE)
 
-    lat = models.FloatField()
-    lon = models.FloatField()
+    lat = models.FloatField(verbose_name='Широта')
+    lon = models.FloatField(verbose_name='Долгота')
 
-    appeared_at = models.DateTimeField()
-    disappeared_at = models.DateTimeField()
+    appeared_at = models.DateTimeField(verbose_name='Появится')
+    disappeared_at = models.DateTimeField(verbose_name='Исчезнет')
 
-    level = models.IntegerField()
-    health = models.IntegerField()
-    strength = models.IntegerField()
-    defence = models.IntegerField()
-    stamina = models.IntegerField()
+    level = models.IntegerField(verbose_name='Уровень')
+    health = models.IntegerField(verbose_name='Здоровье')
+    strength = models.IntegerField(verbose_name='Прочность')
+    defence = models.IntegerField(verbose_name='Защита')
+    stamina = models.IntegerField(verbose_name='Выносливость')

@@ -77,8 +77,7 @@ def show_pokemon(request, pokemon_id):
         }
     else:
         previous_evolution = ''
-    
-    # next_pokemon = pokemon_entity.pokemon.previous_evolution
+
     next_pokemon = Pokemon.objects.get(id=pokemon_id).next_evolutions.first()
     if next_pokemon:
         next_evolution = {
