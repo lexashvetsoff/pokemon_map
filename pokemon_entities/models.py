@@ -1,7 +1,6 @@
 from django.db import models  # noqa F401
 
 class Pokemon(models.Model):
-    id = models.AutoField(auto_created=True, primary_key=True)
     title = models.CharField(max_length=200, verbose_name='Имя на русском')
     title_en = models.CharField(max_length=200, blank=True, verbose_name='Имя на английском')
     title_jp = models.CharField(max_length=200, blank=True, verbose_name='Имя на японском')
