@@ -42,13 +42,13 @@ def show_all_pokemons(request):
 
     pokemons_on_page = []
     for pokemon in db_pokemons:
-        pokemon_data = {
+        serialized_pokemon = {
             'pokemon_id': pokemon.id,
             'title_ru': pokemon.title,
         }
         if pokemon.image:
-            pokemon_data['img_url'] = request.build_absolute_uri(pokemon.image.url)
-        pokemons_on_page.append(pokemon_data)
+            serialized_pokemon['img_url'] = request.build_absolute_uri(pokemon.image.url)
+        pokemons_on_page.append(serialized_pokemon)
 
     return render(request, 'mainpage.html', context={
         'map': folium_map._repr_html_(),
