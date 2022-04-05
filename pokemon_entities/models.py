@@ -5,6 +5,7 @@ class Pokemon(models.Model):
     title_en = models.CharField(max_length=200, blank=True, verbose_name='Имя на английском')
     title_jp = models.CharField(max_length=200, blank=True, verbose_name='Имя на японском')
     image = models.ImageField(blank=True, verbose_name='Картинка')
+    # null=True крайне не рекомендуется применять это свойство к строковым полям (CharField и TextField)
     description = models.TextField(blank=True, verbose_name='Описание')
     previous_evolution = models.ForeignKey(
         'Pokemon',
