@@ -68,7 +68,7 @@ def show_pokemon(request, pokemon_id):
         }
         entities.append(entity)
     
-    pok_entity = pokemons_entity[0]
+    pok_entity = pokemons_entity.first()
     if pok_entity.pokemon.previous_evolution:
         previous_evolution = {
             'title_ru': pok_entity.pokemon.previous_evolution.title,
