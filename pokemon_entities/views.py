@@ -57,10 +57,10 @@ def show_all_pokemons(request):
 
 
 def show_pokemon(request, pokemon_id):
-    pokemon_entities = Pokemon.objects.get(id=pokemon_id).pokemon_entities.all()
+    serialized_pokemon_entities = Pokemon.objects.get(id=pokemon_id).pokemon_entities.all()
 
     entities = []
-    for pokemon_entity in pokemon_entities:
+    for pokemon_entity in serialized_pokemon_entities:
         entity = {
             "level": pokemon_entity.level,
             "lat": pokemon_entity.lat,
@@ -68,7 +68,7 @@ def show_pokemon(request, pokemon_id):
         }
         entities.append(entity)
     
-    pok_entity = pokemon_entities.first()
+    pok_entity = serialized_pokemon_entities.first()
     if pok_entity.pokemon.previous_evolution:
         previous_evolution = {
             'title_ru': pok_entity.pokemon.previous_evolution.title,
