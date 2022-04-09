@@ -29,11 +29,11 @@ def add_pokemon(folium_map, lat, lon, image_url=DEFAULT_IMAGE_URL):
 
 
 def show_all_pokemons(request):
-    pokemons_entities = PokemonEntity.objects.all()
-    db_pokemons = Pokemon.objects.all()
+    pokemon_entities = PokemonEntity.objects.all()
+    pokemons = Pokemon.objects.all()
 
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
-    for pokemon_entity in pokemons_entities:
+    for pokemon_entity in pokemon_entities:
         add_pokemon(
             folium_map, pokemon_entity.lat,
             pokemon_entity.lon,
@@ -41,7 +41,7 @@ def show_all_pokemons(request):
         )
 
     pokemons_on_page = []
-    for pokemon in db_pokemons:
+    for pokemon in pokemons:
         serialized_pokemon = {
             'pokemon_id': pokemon.id,
             'title_ru': pokemon.title,
@@ -57,10 +57,10 @@ def show_all_pokemons(request):
 
 
 def show_pokemon(request, pokemon_id):
-    pokemons_entities = Pokemon.objects.get(id=pokemon_id).pokemon_entities.all()
+    pokemon_entities = Pokemon.objects.get(id=pokemon_id).pokemon_entities.all()
 
     entities = []
-    for pokemon_entity in pokemons_entities:
+    for pokemon_entity in pokemon_entities:
         entity = {
             "level": pokemon_entity.level,
             "lat": pokemon_entity.lat,
@@ -68,7 +68,7 @@ def show_pokemon(request, pokemon_id):
         }
         entities.append(entity)
     
-    pok_entity = pokemons_entities.first()
+    pok_entity = pokemon_entities.first()
     if pok_entity.pokemon.previous_evolution:
         previous_evolution = {
             'title_ru': pok_entity.pokemon.previous_evolution.title,
