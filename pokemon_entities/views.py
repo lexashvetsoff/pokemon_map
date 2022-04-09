@@ -57,7 +57,7 @@ def show_all_pokemons(request):
 
 
 def show_pokemon(request, pokemon_id):
-    pokemons_entity = Pokemon.objects.get(id=pokemon_id).pokemon_entity.all()
+    pokemons_entity = Pokemon.objects.get(id=pokemon_id).pokemon_entities.all()
 
     entities = []
     for pokemon_entity in pokemons_entity:
