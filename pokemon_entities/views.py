@@ -57,6 +57,7 @@ def show_all_pokemons(request):
 
 
 def show_pokemon(request, pokemon_id):
+    pok_entity = Pokemon.objects.get(id=pokemon_id)
     serialized_pokemon_entities = Pokemon.objects.get(id=pokemon_id).pokemon_entities.all()
 
     entities = []
@@ -68,12 +69,11 @@ def show_pokemon(request, pokemon_id):
         }
         entities.append(entity)
     
-    pok_entity = serialized_pokemon_entities.first()
-    if pok_entity.pokemon.previous_evolution:
+    if pok_entity.previous_evolution:
         previous_evolution = {
-            'title_ru': pok_entity.pokemon.previous_evolution.title,
-            'pokemon_id': pok_entity.pokemon.previous_evolution.id,
-            'img_url': request.build_absolute_uri(pok_entity.pokemon.previous_evolution.image.url)
+            'title_ru': pok_entity.previous_evolution.title,
+            'pokemon_id': pok_entity.previous_evolution.id,
+            'img_url': request.build_absolute_uri(pok_entity.previous_evolution.image.url)
         }
     else:
         previous_evolution = ''
@@ -89,12 +89,12 @@ def show_pokemon(request, pokemon_id):
         next_evolution = ''
     
     pokemon = {
-        "pokemon_id": pok_entity.pokemon.id,
-        "title_ru": pok_entity.pokemon.title,
-        "title_en": pok_entity.pokemon.title_en,
-        "title_jp": pok_entity.pokemon.title_jp,
-        "description": pok_entity.pokemon.description,
-        "img_url": request.build_absolute_uri(pok_entity.pokemon.image.url),
+        "pokemon_id": pok_entity.id,
+        "title_ru": pok_entity.title,
+        "title_en": pok_entity.title_en,
+        "title_jp": pok_entity.title_jp,
+        "description": pok_entity.description,
+        "img_url": request.build_absolute_uri(pok_entity.image.url),
         "entities": entities,
         "previous_evolution": previous_evolution,
         "next_evolution": next_evolution
