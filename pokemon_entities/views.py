@@ -58,7 +58,7 @@ def show_all_pokemons(request):
 
 def show_pokemon(request, pokemon_id):
     selected_pokemon = Pokemon.objects.get(id=pokemon_id)
-    serialized_pokemon_entities = Pokemon.objects.get(id=pokemon_id).pokemon_entities.all()
+    serialized_pokemon_entities = selected_pokemon.pokemon_entities.all()
 
     entities = []
     for pokemon_entity in serialized_pokemon_entities:
